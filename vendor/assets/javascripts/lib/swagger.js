@@ -1279,10 +1279,12 @@
       obj.complete = function(response, textStatus, opts) {
         var headerArray, headers, i, out, _i, _j, _k, _ref, _ref1, _ref2, _ref3, _results, _results1;
         headers = {};
-        headerArray = response.getAllResponseHeaders().split(":");
-        for (i = _i = 0, _ref = headerArray.length / 2, _ref1 = 2.; _ref1 > 0 ? _i <= _ref : _i >= _ref; i = _i += _ref1) {
-          headers[headerArray[i]] = headerArray[i + 1];
-        }
+        headerArray = response.getAllResponseHeaders().split("\n");
+    	for (var key_val in headerArray){
+              if (headerArray[key_val].length > 0 )
+                var split = headerArray[key_val].split(": ")
+                headers[split[0]] = split[1]
+            }
         out = {
           headers: headers,
           url: request.url,
