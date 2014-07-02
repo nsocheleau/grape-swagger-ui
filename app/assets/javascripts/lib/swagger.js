@@ -525,11 +525,11 @@
       if (!modelsToIgnore) {
         modelsToIgnore = [];
       }
-      modelsToIgnore.push(this);
+      modelsToIgnore.push(this.name);
       _ref1 = this.properties;
       for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
         prop = _ref1[_j];
-        if ((prop.refModel != null) && (modelsToIgnore[prop.refModel] !== 'undefined') === true) {
+        if ((prop.refModel != null) && (typeof modelsToIgnore[prop.refModel.name] !== 'undefined')) {
           returnVal = returnVal + ('<br>' + prop.refModel.getMockSignature(modelsToIgnore));
         }
       }
@@ -588,7 +588,7 @@
 
     SwaggerModelProperty.prototype.getSampleValue = function(modelsToIgnore) {
       var result;
-      if ((this.refModel != null) && (modelsToIgnore[this.refModel.name] === 'undefined')) {
+      if ((this.refModel != null) && (typeof modelsToIgnore[this.refModel.name] === 'undefined')) {
         result = this.refModel.createJSONSample(modelsToIgnore);
       } else {
         if (this.isCollection) {
